@@ -19,7 +19,7 @@ body {
     Typorgraphy              
 -----------------------------------------*/
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6, address {
   font-family: 'Merriweather', serif;
   font-style: normal;
   font-weight: bold;
@@ -104,8 +104,13 @@ a:hover, a:active, a:focus {
 #contact,
 #blog, 
 #blog-single-post {
-  padding-top: 60px;
+  padding-top: 50px;
   padding-bottom: 80px;
+}
+
+#home
+{
+  margin: 10px;
 }
 
 .main-about,
@@ -293,12 +298,10 @@ a:hover, a:active, a:focus {
   background: url('../images/single-post-bg.jpg') no-repeat;
 }
 
-.main-gallery {
-  background: url('../images/gallery-bg.jpg') no-repeat;
-}
-
 .main-contact {
+  padding-top: 50px;
   background: url('../images/contact-bg.jpg') no-repeat;
+  height: 70vh;
 }
 
 #particles-js {

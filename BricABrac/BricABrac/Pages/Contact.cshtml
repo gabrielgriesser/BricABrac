@@ -3,18 +3,100 @@
 @{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@Model.Message</h3>
 
-<address>
-    Espace de l'Europe 11<br />
-    2000 Neuchâtel, Switzerland<br />
-    <abbr title="Phone">P:</abbr>
-    032 968 00 00
-</address>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<address>
-    <strong>Dev 1:</strong> <a href="mailto:jeremy.dubois@he-arc.ch">jeremy.dubois@he-arc.ch</a><br />
-    <strong>Dev 2:</strong> <a href="mailto:gabriel.griesser@he-arc.ch">gabriel.griesser@he-arc.ch</a><br />
-    <strong>Dev 3:</strong> <a href="mailto:julien.feuillade@he-arc.ch">julien.feuillade@he-arc.ch</a><br />
-</address>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Neuron Template - Contact</title>
+<!--
+
+Template 2085 Neuron
+
+http://www.tooplate.com/view/2085-neuron
+
+-->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Lora|Merriweather:300,400" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- PRE LOADER -->
+<!-- Navigation section  -->
+
+<!-- Home Section -->
+
+<section id="home" class="main-contact parallax-section">
+     <div class="overlay"></div>
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-12 col-sm-12">
+                    <h2>Contact us</h2>
+               </div>
+
+          </div>
+     </div>
+</section>
+
+<!-- Contact Section -->
+
+<section id="contact">
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-offset-1 col-md-10 col-sm-12">
+                    <h2>Say hello..</h2>
+                    <address>
+                        Espace de l'Europe 11<br />
+                        2000 Neuchâtel, Switzerland<br />
+                        <abbr title="Phone">P:</abbr>
+                        032 968 00 00
+                    </address>
+
+                    <address>
+                        <strong>Dev 1:</strong> <a href="mailto:jeremy.dubois@he-arc.ch">jeremy.dubois@he-arc.ch</a><br />
+                        <strong>Dev 2:</strong> <a href="mailto:gabriel.griesser@he-arc.ch">gabriel.griesser@he-arc.ch</a><br />
+                        <strong>Dev 3:</strong> <a href="mailto:julien.feuillade@he-arc.ch">julien.feuillade@he-arc.ch</a><br />
+                    </address>
+
+                    <!-- TODO HERE ENVOYER MAIL !! -->
+                    <form action="#" method="post">
+                         <div class="col-md-4 col-sm-4">
+                              <input name="name" type="text" class="form-control" id="name" placeholder="Name">
+                         </div>
+                         <div class="col-md-4 col-sm-4">
+                              <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                      	 </div>
+                         <div class="col-md-4 col-sm-4">
+                              <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject">
+                      	 </div>
+                         <div class="col-md-12 col-sm-12">
+                              <textarea name="message" rows="5" class="form-control" id="message" placeholder="Message"></textarea>
+                         </div>
+                         <div class="col-md-3 col-sm-6">
+                              <input name="submit" type="submit" class="form-control" id="submit" value="Send">
+                         </div>
+                    </form>
+               </div>
+
+          </div>
+     </div>
+</section>
+</body>
+</html>
+<!-- Footer Section -->
+
+
