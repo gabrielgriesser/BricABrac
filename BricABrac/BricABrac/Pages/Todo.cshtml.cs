@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace BricABrac.Pages
 {
     public class TodoModel : PageModel
-    {public string Message { get; private set; } = "PageModel in C#";
+    {
+        public string Message { get; private set; } = "PageModel in C#";
 
         public void OnGet()
         {

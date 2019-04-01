@@ -28,6 +28,54 @@ body {
     margin: 15px;
 }
 
+/* TODO Page */
+#text-demo
+{
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+	width: 900px;
+	margin: 0 auto;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	-webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, .5);
+	-moz-box-shadow: 0 0 10px 2px rgba(0, 0, 0, .5);
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, .5);
+	padding: 7px 25px 70px;
+    background-color: #FFF;
+    margin-top: 40px;
+}
+
+h2, form
+{
+    text-align: center;
+}
+
+form
+{
+    margin-top: 5px;
+}
+
+.filename 
+{
+	text-align: right;
+}
+
+
+
+.input {
+	width: 500px;
+	height: 300px;
+	margin: 0 auto;
+    display: block;
+    resize: none;
+}
+
+h2
+{
+    text-align: center;
+}
+
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
