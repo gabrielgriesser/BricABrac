@@ -1,0 +1,15 @@
+﻿@model BricABrac.Models.TodoModel
+
+@{
+    ViewData["Title"] = "Todo";
+}
+
+<!-- Text Section -->
+<section id="text-demo">
+    <h2>Saving text</h2>
+    <textarea class="input" id="textAreaTodo" placeholder="Enter text here"></textarea>
+    <form id="text-options" method="post" onsubmit="return onTextSaveFile()" ;>
+        <label>Filename: <input type="text" class="filename" id="text-filename" placeholder="a text document" />.txt</label>
+        <input type="submit" value="Save" />
+    </form>
+</section>

@@ -1,12 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BricABrac.Pages
+namespace BricABrac.Models
 {
-    public class TodoModel : PageModel
+    public class TodoModel
     {
         public string Message { get; private set; } = "PageModel in C#";
 
@@ -14,7 +13,5 @@ namespace BricABrac.Pages
         {
             Message += $" Server time is { DateTime.Now }";
         }
-
-        
     }
 }
