@@ -207,7 +207,7 @@ CREATE TABLE `aspnetusers` (
 
 LOCK TABLES `aspnetusers` WRITE;
 /*!40000 ALTER TABLE `aspnetusers` DISABLE KEYS */;
-INSERT INTO `aspnetusers` VALUES ('1c7065ae-8455-45c0-8f2e-a1751bdf8130','test@test.com','TEST@TEST.COM','test@test.com','TEST@TEST.COM',_binary '\0','AQAAAAEAACcQAAAAED2GCHGmQb4F3IwYIzahY37riGRYIbDWSfNM1vmo54vG2croO48M+1gyGEf5pjOEYQ==','ZRMSRC7NEAUI55XRXNP4YU2LHAZB6KOF','ed743a5b-a458-4fc5-893c-af19b1e043c0',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
+INSERT INTO `aspnetusers` VALUES ('1c7065ae-8455-45c0-8f2e-a1751bdf8130','test@test.com','TEST@TEST.COM','test@test.com','TEST@TEST.COM',_binary '\0','AQAAAAEAACcQAAAAED2GCHGmQb4F3IwYIzahY37riGRYIbDWSfNM1vmo54vG2croO48M+1gyGEf5pjOEYQ==','ZRMSRC7NEAUI55XRXNP4YU2LHAZB6KOF','ed743a5b-a458-4fc5-893c-af19b1e043c0',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('7a777ffa-2239-462f-862f-0814ef7120d6','admin@admin.com','ADMIN@ADMIN.COM','admin@admin.com','ADMIN@ADMIN.COM',_binary '\0','AQAAAAEAACcQAAAAEKcgqIC6/g8ENT617lB2R3lOlts6v1cN2Nsr2Q0qxDlAQOMQGqojgb1c6LntL69knw==','DDL652A7T2ARRCQDL57H5SUVEIQTFT4N','24310e71-28ee-4d53-959b-e8a5c91ed463',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
 /*!40000 ALTER TABLE `aspnetusers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,6 +235,90 @@ CREATE TABLE `aspnetusertokens` (
 LOCK TABLES `aspnetusertokens` WRITE;
 /*!40000 ALTER TABLE `aspnetusertokens` DISABLE KEYS */;
 /*!40000 ALTER TABLE `aspnetusertokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `grade`
+--
+
+DROP TABLE IF EXISTS `grade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `grade` (
+  `id` int(11) NOT NULL,
+  `grade` decimal(10,2) DEFAULT NULL,
+  `coefficient` decimal(10,2) DEFAULT NULL,
+  `subjectid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `subject_id_idx` (`subjectid`),
+  CONSTRAINT `subjectid` FOREIGN KEY (`subjectid`) REFERENCES `subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grade`
+--
+
+LOCK TABLES `grade` WRITE;
+/*!40000 ALTER TABLE `grade` DISABLE KEYS */;
+INSERT INTO `grade` VALUES (1,4.00,1.00,1),(2,5.00,1.00,1),(3,2.00,1.00,2),(4,4.50,1.50,2);
+/*!40000 ALTER TABLE `grade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `module`
+--
+
+DROP TABLE IF EXISTS `module`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `module` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `schoolyear` int(11) DEFAULT NULL,
+  `userid` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id_idx` (`userid`),
+  CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `aspnetusers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `module`
+--
+
+LOCK TABLES `module` WRITE;
+/*!40000 ALTER TABLE `module` DISABLE KEYS */;
+INSERT INTO `module` VALUES (1,'Imagerie',3,'7a777ffa-2239-462f-862f-0814ef7120d6'),(2,'Reseaux',2,NULL);
+/*!40000 ALTER TABLE `module` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subject`
+--
+
+DROP TABLE IF EXISTS `subject`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `subject` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `coefficient` decimal(10,2) DEFAULT NULL,
+  `moduleid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `module_id_idx` (`moduleid`),
+  CONSTRAINT `moduleid` FOREIGN KEY (`moduleid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subject`
+--
+
+LOCK TABLES `subject` WRITE;
+/*!40000 ALTER TABLE `subject` DISABLE KEYS */;
+INSERT INTO `subject` VALUES (1,'WebGL',1.00,1),(2,'Crypto',1.00,2);
+/*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -269,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-17 13:57:40
+-- Dump completed on 2019-04-18  1:16:19

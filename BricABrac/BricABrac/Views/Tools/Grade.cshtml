@@ -1,0 +1,51 @@
+﻿@model BricABrac.Models.StudentGradeModel
+
+<h2>Grades</h2>
+
+<div>
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model.Modules)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayTextFor(modelItem => item.Name)
+
+                    </td>
+                </tr>
+
+                @foreach (var item2 in Model.Subjects)
+                {
+
+                    if (@Html.DisplayTextFor(modelItem => item.Id)== @Html.DisplayTextFor(modelItem => item2.Module.Id))
+                    {
+                        <tr>
+                            <td>
+
+                                @Html.DisplayTextFor(modelItem => item2.Name)
+
+                            </td>
+                        </tr>
+                        @foreach (var item3 in Model.Grades)
+                        {
+                            if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subject.Id))
+                            {
+                                <tr>
+                                    <td>
+
+                                        @Html.DisplayTextFor(modelItem => item3.Grade)
+
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    }
+
+                }
+            }
+        </tbody>
+    </table>
+
+    <dl class="dl-horizontal"></dl>
+</div>
