@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BricABrac.Models;
 using BricABrac.Data;
+using System.Net.Http;
+using System.Security.Claims;
 
 namespace BricABrac.Controllers
 {
@@ -26,51 +28,63 @@ namespace BricABrac.Controllers
 
         public IActionResult Grade()
         {
-            StudentGradeModel sgm = new StudentGradeModel();
-            sgm.Modules = Db.Modules.ToList();
-            sgm.Subjects = Db.Subjects.ToList();
-            sgm.Grades = Db.Grades.ToList();
+            StudentGradeModel sgm = new StudentGradeModel
+            {
+                Modules = Db.Modules.ToList(),
+                Subjects = Db.Subjects.ToList(),
+                Grades = Db.Grades.ToList()
+            };
 
             return View(sgm);
         }
 
-        public IActionResult CreateModule()
+        public IActionResult CreateModule(ModuleModel model)
         {
-            return View();
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    model.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    Db.Modules.Add(model);
+                    Db.SaveChanges();
+                    return RedirectToAction("Grade");
+                }
+            }
+            return View(model);
         }
 
         public IActionResult EditModule(int Id)
         {
-            var module = Db.Modules.Where(s => s.Id == Id).FirstOrDefault();
-            return View(module);
-        }
-
-        [HttpPost]
-        public ActionResult CreateEditModule(ModuleModel model)
-        {
-            if (ModelState.IsValid)
+            var model = Db.Modules.Where(s => s.Id == Id).FirstOrDefault();
+            if (Request.Method == "POST")
             {
-                // No id so we add it to database
-                if (model.Id <= 0)
+                if (ModelState.IsValid)
                 {
-                    Db.Modules.Add(model);
+                    model.Name = Request.Form["Name"];
+                    model.SchoolYear = Int32.Parse(Request.Form["SchoolYear"]);
+                    Db.Modules.Update(model);
+                    Db.SaveChanges();
+                    return RedirectToAction("Grade");
                 }
-                // Has Id, therefore it's in database so we update
-                else
-                {
-                    Db.Entry(model).State = EntityState.Modified;
-                }
-                Db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            return View();
+            return View(model);
         }
 
-
-        public IActionResult AddSubject()
+        public IActionResult CreateSubject(SubjectModuleViewModel model)
         {
-            return View();
+            SubjectModuleViewModel smvm = new SubjectModuleViewModel();
+            smvm.ModuleList = Db.Modules.ToList();
+
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    Db.Subjects.Add(model.Subject);
+                    Db.SaveChanges();
+                    return RedirectToAction("Grade");
+                }
+            }
+            return View(smvm);
         }
 
         public IActionResult AddGrade()
