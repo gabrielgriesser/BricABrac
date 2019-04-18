@@ -34,10 +34,39 @@ namespace BricABrac.Controllers
             return View(sgm);
         }
 
-        public IActionResult AddModule()
+        public IActionResult CreateModule()
         {
             return View();
         }
+
+        public IActionResult EditModule(int Id)
+        {
+            var module = Db.Modules.Where(s => s.Id == Id).FirstOrDefault();
+            return View(module);
+        }
+
+        [HttpPost]
+        public ActionResult CreateEditModule(ModuleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // No id so we add it to database
+                if (model.Id <= 0)
+                {
+                    Db.Modules.Add(model);
+                }
+                // Has Id, therefore it's in database so we update
+                else
+                {
+                    Db.Entry(model).State = EntityState.Modified;
+                }
+                Db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
 
         public IActionResult AddSubject()
         {

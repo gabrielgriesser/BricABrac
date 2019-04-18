@@ -14,9 +14,9 @@ namespace BricABrac.Data
         {
         }
 
-        public DbSet<Modules> Modules { get; set; }
-        public DbSet<Subjects> Subjects { get; set; }
-        public DbSet<Grades> Grades { get; set; }
+        public DbSet<ModuleModel> Modules { get; set; }
+        public DbSet<SubjectModel> Subjects { get; set; }
+        public DbSet<GradeModel> Grades { get; set; }
         public DbSet<StudentGradeModel> StudentGrades { get; set; }
         
 
@@ -26,14 +26,9 @@ namespace BricABrac.Data
 
             modelBuilder.Ignore<StudentGradeModel>();
 
-            modelBuilder.Entity<Grades>().ToTable("grade");
-            modelBuilder.Entity<Modules>().ToTable("module");
-            modelBuilder.Entity<Subjects>().ToTable("subject");
-
-
-            //modelBuilder.Entity<ModuleModel>().ToTable("module");
-            //modelBuilder.Entity<SubjectModel>().ToTable("subject");
-            //modelBuilder.Entity<GradeModel>().ToTable("grade");
+            modelBuilder.Entity<ModuleModel>().ToTable("module");
+            modelBuilder.Entity<SubjectModel>().ToTable("subject");
+            modelBuilder.Entity<GradeModel>().ToTable("grade");
         }
     }
 }

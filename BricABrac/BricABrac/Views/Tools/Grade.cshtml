@@ -2,28 +2,26 @@
 
 <h2>Grades</h2>
 
+<button class="btn btn-primary">
+    <a class="nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateModule">Create a module</a>
+</button>
 <div>
-    <table class="table">
+    <table class="table table-striped">
         <tbody>
             @foreach (var item in Model.Modules)
             {
                 <tr>
                     <td>
                         @Html.DisplayTextFor(modelItem => item.Name)
-
                     </td>
                 </tr>
-
                 @foreach (var item2 in Model.Subjects)
                 {
-
                     if (@Html.DisplayTextFor(modelItem => item.Id)== @Html.DisplayTextFor(modelItem => item2.Module.Id))
                     {
                         <tr>
                             <td>
-
                                 @Html.DisplayTextFor(modelItem => item2.Name)
-
                             </td>
                         </tr>
                         @foreach (var item3 in Model.Grades)
@@ -32,20 +30,14 @@
                             {
                                 <tr>
                                     <td>
-
                                         @Html.DisplayTextFor(modelItem => item3.Grade)
-
                                     </td>
                                 </tr>
                             }
-
                         }
                     }
-
                 }
             }
         </tbody>
     </table>
-
-    <dl class="dl-horizontal"></dl>
 </div>
