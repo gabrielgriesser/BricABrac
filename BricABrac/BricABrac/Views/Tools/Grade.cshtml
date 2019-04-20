@@ -1,49 +1,167 @@
 ﻿@model BricABrac.Models.StudentGradeModel
 
-<h2>Grades</h2>
+<h1>Grades</h1>
 
-<button class="btn btn-primary">
-    <a class="nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateModule">Create a module</a>
-</button>
-<button class="btn btn-primary">
-    <a class="nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateSubject">Create a subject</a>
-</button>
-<button class="btn btn-primary">
-    <a class="nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateGrade">Create a grade</a>
-</button>
+<a class="btn btn-primary nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateModule">Add a module</a>
+
+<a class="btn btn-primary nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateSubject">Add a subject</a>
+
+<a class="btn btn-primary nav-link text-white" asp-area="" asp-controller="Tools" asp-action="CreateGrade">Add a grade</a>
+
 <div>
-    <table class="table table-striped">
-        <tbody>
-            @foreach (var item in Model.Modules)
+
+    @foreach (var item in Model.Modules)
+    {
+
+        <div>
+            <h2>@Html.DisplayTextFor(modelItem => item.Name)</h2>
+
+            @{
+                decimal average_module = 0;
+                decimal coef_module = 0;
+            }
+
+            @foreach (var item2 in Model.Subjects)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayTextFor(modelItem => item.Name)
-                    </td>
-                </tr>
-                @foreach (var item2 in Model.Subjects)
+                if (@Html.DisplayTextFor(modelItem => item.Id) == @Html.DisplayTextFor(modelItem => item2.Moduleid))
                 {
-                    if (@Html.DisplayTextFor(modelItem => item.Id)== @Html.DisplayTextFor(modelItem => item2.Moduleid))
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayTextFor(modelItem => item2.Name)
-                            </td>
-                        </tr>
+
+                    <h3>@Html.DisplayTextFor(modelItem => item2.Name) </h3>
+                    <p>(Coeffient: @Html.DisplayTextFor(modelItem => item2.Coefficient))</p>
+
+                    <table class="table table-striped">
+                        <thead>
+
+                        <td></td>
                         @foreach (var item3 in Model.Grades)
                         {
-                            if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid))
+                            if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid)
+                                && Boolean.Parse(@Html.DisplayTextFor(modelItem => item3.IsExam)) != true)
                             {
-                                <tr>
+                                <td></td>
+                            }
+                        }
+
+                        @{int counter = 0;}
+                        @foreach (var item3 in Model.Grades)
+                        {
+                            if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid)
+                            && Boolean.Parse(@Html.DisplayTextFor(modelItem => item3.IsExam)) != false)
+                            {
+                                <td>Exam @(++counter)</td>
+                            }
+                        }
+                        @if (counter != 0)
+                        {
+                            <td>Exam Average</td>}
+
+
+                        <td style="width:0.1%;">Average</td>
+
+                        </thead>
+
+                        @{
+                            decimal average_grade = 0;
+                            decimal coef_grade = 0;
+                            decimal average_exam = 0;
+                            decimal coef_exam = 0;
+                        }
+                        <tr>
+                            <td>Grades</td>
+
+                            @foreach (var item3 in Model.Grades)
+                            {
+                                if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid)
+                                    && Boolean.Parse(@Html.DisplayTextFor(modelItem => item3.IsExam)) != true)
+                                {
+
                                     <td>
                                         @Html.DisplayTextFor(modelItem => item3.Grade)
                                     </td>
-                                </tr>
+
+                                    average_grade += Decimal.Parse(@Html.DisplayTextFor(modelItem => item3.Grade)) * Decimal.Parse(@Html.DisplayTextFor(modelItem => item3.Coefficient));
+                                    coef_grade += Decimal.Parse(@Html.DisplayTextFor(modelItem => item3.Coefficient));
+                                }
                             }
-                        }
-                    }
+                            @foreach (var item3 in Model.Grades)
+                            {
+                                if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid)
+                                    && Boolean.Parse(@Html.DisplayTextFor(modelItem => item3.IsExam)) != false)
+                                {
+
+                                    <td>
+                                        @Html.DisplayTextFor(modelItem => item3.Grade)
+                                    </td>
+
+                                    average_exam += Decimal.Parse(@Html.DisplayTextFor(modelItem => item3.Grade)) * Decimal.Parse(@Html.DisplayTextFor(modelItem => item3.Coefficient));
+                                    coef_exam += Decimal.Parse(@Html.DisplayTextFor(modelItem => item3.Coefficient));
+                                }
+                            }
+                        </tr>
+                        <tr>
+                            <td style="width:20%;">Coefficients</td>
+
+
+                            @foreach (var item3 in Model.Grades)
+                            {
+                                if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid)
+                                    && Boolean.Parse(@Html.DisplayTextFor(modelItem => item3.IsExam)) != true)
+                                {
+                                    <td>
+                                        @Html.DisplayTextFor(modelItem => item3.Coefficient)
+                                    </td>
+                                }
+                            }
+                            @foreach (var item3 in Model.Grades)
+                            {
+                                if (@Html.DisplayTextFor(modelItem => item2.Id) == @Html.DisplayTextFor(modelItem => item3.Subjectid)
+                                    && Boolean.Parse(@Html.DisplayTextFor(modelItem => item3.IsExam)) != false)
+                                {
+                                    <td>
+                                        @Html.DisplayTextFor(modelItem => item3.Coefficient)
+                                    </td>
+                                }
+                            }
+
+                            @if (coef_exam != 0 || average_exam != 0)
+                            {
+                                if (Int16.Parse(@Html.DisplayTextFor(modelItem => item.SchoolYear)) == 3)
+                                {
+                                    coef_exam = coef_exam / 2;
+                                    average_exam = average_exam / 2;
+                                }
+
+                                average_exam = average_exam / coef_exam;
+                                average_module += (average_exam * coef_exam);
+                                coef_module += coef_exam;
+
+                                average_exam = System.Math.Round(average_exam, 2);
+                                <td style="width:5%;"><b> @average_exam </b></td>
+                            }
+
+                            @if (coef_grade != 0 || average_grade != 0)
+                            {
+                                decimal coef_subject = Decimal.Parse(@Html.DisplayTextFor(modelItem => item2.Coefficient));
+
+                                average_grade = average_grade / coef_grade;
+                                average_module += (average_grade * coef_subject);
+
+                                coef_module += coef_subject;
+
+                                average_grade = System.Math.Round(average_grade, 2);
+                                <td style="width:5%;"><b> @average_grade </b></td>
+                            }
+
+                        </tr>
+                    </table>
                 }
             }
-        </tbody>
-    </table>
+
+            @{
+                average_module = average_module / coef_module;
+                average_module = System.Math.Round(average_module, 2);
+                <h3>Average in the module : @average_module</h3>
+            }
+        </div>
+    }
 </div>

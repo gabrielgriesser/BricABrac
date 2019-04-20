@@ -119,8 +119,6 @@ namespace BricABrac.Controllers
 
                     model.Name = Request.Form["Subject.Name"];
                     model.Coefficient = Decimal.Parse(Request.Form["Subject.Coefficient"]);
-                    model.Gradeexam = Decimal.Parse(Request.Form["Subject.Gradeexam"]);
-                    model.Coefficientexam = Decimal.Parse(Request.Form["Subject.Coefficientexam"]);
                     model.Moduleid = Int32.Parse(Request.Form["Subject.Module.Id"]);
 
                     Db.Subjects.Update(model);
@@ -176,6 +174,7 @@ namespace BricABrac.Controllers
 
                     model.Grade = Decimal.Parse(Request.Form["Grade.Grade"]);
                     model.Coefficient = Decimal.Parse(Request.Form["Grade.Coefficient"]);
+                    model.IsExam = Boolean.Parse(Request.Form["Grade.Coefficient"]);
                     model.Subjectid = Int32.Parse(Request.Form["Grade.Subject.Id"]);
 
                     Db.Grades.Update(model);

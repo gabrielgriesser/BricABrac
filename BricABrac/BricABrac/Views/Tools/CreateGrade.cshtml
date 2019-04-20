@@ -23,6 +23,11 @@
                 <span asp-validation-for="Grade.Coefficient" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <input asp-for="Grade.IsExam" type="checkbox" />
+                <label asp-for="Grade.IsExam" class="control-label">Is a exam ?</label>
+
+            </div>
+            <div class="form-group">
                 <label class="control-label">Module name</label>
                 <select asp-for="Grade.Subjectid" asp-items="@(new SelectList(Model.SubjectList, "Id", "Name"))" class="form-control"></select>
             </div>

@@ -11,6 +11,7 @@ namespace BricABrac.Models
         public int Id { get; set; }
         public decimal Grade { get; set; }
         public decimal Coefficient { get; set; }
+        public bool IsExam { get; set; }
         public string UserIdGrade { get; set; }
 
         public virtual SubjectModel Subject { get; set; }
