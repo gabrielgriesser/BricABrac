@@ -13,7 +13,7 @@ namespace BricABrac.Models
 
         public string Name { get; set; }
         public int SchoolYear { get; set; }
-        public string UserId { get; set; }
+        public string UserIdModule { get; set; }
 
         public virtual ICollection<SubjectModel> Subjects { get; set; } = new List<SubjectModel>();
     }

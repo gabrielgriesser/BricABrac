@@ -28,11 +28,12 @@ namespace BricABrac.Controllers
 
         public IActionResult Grade()
         {
+            var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StudentGradeModel sgm = new StudentGradeModel
             {
-                Modules = Db.Modules.ToList(),
-                Subjects = Db.Subjects.ToList(),
-                Grades = Db.Grades.ToList()
+                Modules = Db.Modules.Where(m => m.UserIdModule == userid).ToList(),
+                Subjects = Db.Subjects.Where(s => s.UserIdSubject == userid).ToList(),
+                Grades = Db.Grades.Where(g => g.UserIdGrade == userid).ToList()
             };
 
             return View(sgm);
@@ -44,7 +45,7 @@ namespace BricABrac.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    model.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    model.UserIdModule = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     Db.Modules.Add(model);
                     Db.SaveChanges();
                     return RedirectToAction("Grade");
@@ -55,7 +56,11 @@ namespace BricABrac.Controllers
 
         public IActionResult EditModule(int Id)
         {
-            var model = Db.Modules.Where(s => s.Id == Id).FirstOrDefault();
+            var model = Db.Modules
+                .Where(m => m.Id == Id)
+                .Where(m => m.UserIdModule == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .FirstOrDefault();
+
             if (Request.Method == "POST")
             {
                 if (ModelState.IsValid)
@@ -72,13 +77,18 @@ namespace BricABrac.Controllers
 
         public IActionResult CreateSubject(SubjectModuleViewModel model)
         {
-            SubjectModuleViewModel smvm = new SubjectModuleViewModel();
-            smvm.ModuleList = Db.Modules.ToList();
+            SubjectModuleViewModel smvm = new SubjectModuleViewModel
+            {
+                ModuleList = Db.Modules
+                .Where(s => s.UserIdModule == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToList()
+            };
 
             if (Request.Method == "POST")
             {
                 if (ModelState.IsValid)
                 {
+                    model.Subject.UserIdSubject = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     Db.Subjects.Add(model.Subject);
                     Db.SaveChanges();
                     return RedirectToAction("Grade");
@@ -87,9 +97,94 @@ namespace BricABrac.Controllers
             return View(smvm);
         }
 
-        public IActionResult AddGrade()
+        public IActionResult EditSubject(int Id)
         {
-            return View();
+            SubjectModuleViewModel smvm = new SubjectModuleViewModel
+            {
+                ModuleList = Db.Modules
+                .Where(m => m.UserIdModule == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToList(),
+
+                Subject = Db.Subjects
+                .Where(s => s.Id == Id)
+                .Where(s => s.UserIdSubject == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .FirstOrDefault()
+            };
+
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    var model = Db.Subjects.Where(s => s.Id == Id).FirstOrDefault();
+
+                    model.Name = Request.Form["Subject.Name"];
+                    model.Coefficient = Decimal.Parse(Request.Form["Subject.Coefficient"]);
+                    model.Gradeexam = Decimal.Parse(Request.Form["Subject.Gradeexam"]);
+                    model.Coefficientexam = Decimal.Parse(Request.Form["Subject.Coefficientexam"]);
+                    model.Moduleid = Int32.Parse(Request.Form["Subject.Module.Id"]);
+
+                    Db.Subjects.Update(model);
+                    Db.SaveChanges();
+                    return RedirectToAction("Grade");
+                }
+            }
+
+            return View(smvm);
+        }
+
+        public IActionResult CreateGrade(GradeSubjectViewModel model)
+        {
+            GradeSubjectViewModel gsvm = new GradeSubjectViewModel
+            {
+                SubjectList = Db.Subjects
+                .Where(s => s.UserIdSubject == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToList()
+            };
+
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    model.Grade.UserIdGrade = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    Db.Grades.Add(model.Grade);
+                    Db.SaveChanges();
+                    return RedirectToAction("Grade");
+                }
+            }
+            return View(gsvm);
+        }
+
+        public IActionResult EditGrade(int Id)
+        {
+            GradeSubjectViewModel gsvm = new GradeSubjectViewModel
+            {
+                SubjectList = Db.Subjects
+                .Where(s => s.UserIdSubject == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToList(),
+
+                Grade = Db.Grades
+                .Where(s => s.Id == Id)
+                .Where(g => g.UserIdGrade == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .FirstOrDefault()
+            };
+
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    var model = Db.Grades.Where(s => s.Id == Id).FirstOrDefault();
+
+                    model.Grade = Decimal.Parse(Request.Form["Grade.Grade"]);
+                    model.Coefficient = Decimal.Parse(Request.Form["Grade.Coefficient"]);
+                    model.Subjectid = Int32.Parse(Request.Form["Grade.Subject.Id"]);
+
+                    Db.Grades.Update(model);
+                    Db.SaveChanges();
+                    return RedirectToAction("Grade");
+                }
+            }
+
+            return View(gsvm);
         }
 
         public IActionResult PdfReader()

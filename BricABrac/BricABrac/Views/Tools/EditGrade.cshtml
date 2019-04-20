@@ -1,0 +1,40 @@
+﻿@model BricABrac.Models.GradeSubjectViewModel
+
+@{
+    ViewData["Title"] = "EditGrade";
+}
+
+<h2>EditGrade</h2>
+
+<h4>GradeModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditGrade">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Grade.Id" />
+            <div class="form-group">
+                <label asp-for="Grade.Grade" class="control-label"></label>
+                <input asp-for="Grade.Grade" class="form-control" />
+                <span asp-validation-for="Grade.Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade.Coefficient" class="control-label"></label>
+                <input asp-for="Grade.Coefficient" class="form-control" />
+                <span asp-validation-for="Grade.Coefficient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Subject name</label>
+                <select asp-for="Grade.Subject.Id" asp-items="@(new SelectList(Model.SubjectList, "Id", "Name",  Model.SubjectList.Select(x=> x.Id).FirstOrDefault()))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
