@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BricABrac.Models;
 using BricABrac.Data;
-using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace BricABrac.Controllers
@@ -26,8 +26,23 @@ namespace BricABrac.Controllers
             return View();
         }
 
+        public ActionResult EditMode()
+        {
+            if(HttpContext.Session.GetInt32("editMode") == 1)
+            {
+                HttpContext.Session.SetInt32("editMode", 0);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("editMode", 1);
+            }
+
+            return this.RedirectToAction("Grade");
+        }
+
         public IActionResult Grade()
         {
+            
             var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StudentGradeModel sgm = new StudentGradeModel
             {
@@ -35,6 +50,8 @@ namespace BricABrac.Controllers
                 Subjects = Db.Subjects.Where(s => s.UserIdSubject == userid).ToList(),
                 Grades = Db.Grades.Where(g => g.UserIdGrade == userid).ToList()
             };
+
+            ViewBag.EditMode = HttpContext.Session.GetInt32("editMode");
 
             return View(sgm);
         }
@@ -73,6 +90,17 @@ namespace BricABrac.Controllers
                 }
             }
             return View(model);
+        }
+
+        public IActionResult DeleteModule()
+        {
+            if (Request.Method == "POST")
+            {
+                Db.Modules.Remove(Db.Modules.Find(Int32.Parse(Request.Form["Id"])));
+                Db.SaveChanges();
+                return RedirectToAction("Grade");
+            }
+            return RedirectToAction("Grade");
         }
 
         public IActionResult CreateSubject(SubjectModuleViewModel model)
@@ -130,6 +158,17 @@ namespace BricABrac.Controllers
             return View(smvm);
         }
 
+        public IActionResult DeleteSubject()
+        {
+            if (Request.Method == "POST")
+            {
+                Db.Subjects.Remove(Db.Subjects.Find(Int32.Parse(Request.Form["Subject.Id"])));
+                Db.SaveChanges();
+                return RedirectToAction("Grade");
+            }
+            return RedirectToAction("Grade");
+        }
+
         public IActionResult CreateGrade(GradeSubjectViewModel model)
         {
             GradeSubjectViewModel gsvm = new GradeSubjectViewModel
@@ -174,7 +213,11 @@ namespace BricABrac.Controllers
 
                     model.Grade = Decimal.Parse(Request.Form["Grade.Grade"]);
                     model.Coefficient = Decimal.Parse(Request.Form["Grade.Coefficient"]);
-                    model.IsExam = Boolean.Parse(Request.Form["Grade.Coefficient"]);
+
+                    if(Request.Form["Grade.IsExam"] == "false")
+                    { model.IsExam = Convert.ToBoolean("False");  }
+                    else { model.IsExam = Convert.ToBoolean("True"); }
+
                     model.Subjectid = Int32.Parse(Request.Form["Grade.Subject.Id"]);
 
                     Db.Grades.Update(model);
@@ -184,6 +227,17 @@ namespace BricABrac.Controllers
             }
 
             return View(gsvm);
+        }
+
+        public IActionResult DeleteGrade()
+        {
+            if (Request.Method == "POST")
+            {
+                Db.Grades.Remove(Db.Grades.Find(Int32.Parse(Request.Form["Grade.Id"])));
+                Db.SaveChanges();
+                return RedirectToAction("Grade");
+            }
+            return RedirectToAction("Grade");
         }
 
         public IActionResult PdfReader()
