@@ -207,7 +207,7 @@ CREATE TABLE `aspnetusers` (
 
 LOCK TABLES `aspnetusers` WRITE;
 /*!40000 ALTER TABLE `aspnetusers` DISABLE KEYS */;
-INSERT INTO `aspnetusers` VALUES ('1c7065ae-8455-45c0-8f2e-a1751bdf8130','test@test.com','TEST@TEST.COM','test@test.com','TEST@TEST.COM',_binary '\0','AQAAAAEAACcQAAAAED2GCHGmQb4F3IwYIzahY37riGRYIbDWSfNM1vmo54vG2croO48M+1gyGEf5pjOEYQ==','ZRMSRC7NEAUI55XRXNP4YU2LHAZB6KOF','ed743a5b-a458-4fc5-893c-af19b1e043c0',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('7a777ffa-2239-462f-862f-0814ef7120d6','admin@admin.com','ADMIN@ADMIN.COM','admin@admin.com','ADMIN@ADMIN.COM',_binary '\0','AQAAAAEAACcQAAAAEKcgqIC6/g8ENT617lB2R3lOlts6v1cN2Nsr2Q0qxDlAQOMQGqojgb1c6LntL69knw==','DDL652A7T2ARRCQDL57H5SUVEIQTFT4N','24310e71-28ee-4d53-959b-e8a5c91ed463',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
+INSERT INTO `aspnetusers` VALUES ('1c7065ae-8455-45c0-8f2e-a1751bdf8130','test@test.com','TEST@TEST.COM','test@test.com','TEST@TEST.COM',_binary '\0','AQAAAAEAACcQAAAAED2GCHGmQb4F3IwYIzahY37riGRYIbDWSfNM1vmo54vG2croO48M+1gyGEf5pjOEYQ==','ZRMSRC7NEAUI55XRXNP4YU2LHAZB6KOF','ed743a5b-a458-4fc5-893c-af19b1e043c0',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('3e3c9308-68c6-4a41-9495-04dc43b6b17e','admin2@admin.com','ADMIN2@ADMIN.COM','admin2@admin.com','ADMIN2@ADMIN.COM',_binary '\0','AQAAAAEAACcQAAAAEK7aml0SI2/WcgfsL4KRsBCBEqKHqZJAUozNFxLCKtX+vBIBrPMq10J2dHO0vGIQOg==','E4ZHDPDXDF6PAXRX2HAHUZ2S6VSWEH5Y','10f7cf7d-b47a-4ed0-bcc0-1e230b06476b',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('7a777ffa-2239-462f-862f-0814ef7120d6','admin@admin.com','ADMIN@ADMIN.COM','admin@admin.com','ADMIN@ADMIN.COM',_binary '\0','AQAAAAEAACcQAAAAEKcgqIC6/g8ENT617lB2R3lOlts6v1cN2Nsr2Q0qxDlAQOMQGqojgb1c6LntL69knw==','DDL652A7T2ARRCQDL57H5SUVEIQTFT4N','24310e71-28ee-4d53-959b-e8a5c91ed463',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
 /*!40000 ALTER TABLE `aspnetusers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,6 +234,7 @@ CREATE TABLE `aspnetusertokens` (
 
 LOCK TABLES `aspnetusertokens` WRITE;
 /*!40000 ALTER TABLE `aspnetusertokens` DISABLE KEYS */;
+INSERT INTO `aspnetusertokens` VALUES ('3e3c9308-68c6-4a41-9495-04dc43b6b17e','[AspNetUserStore]','AuthenticatorKey','Z5Z6QSMBWZQWKIEB7UKJKWIDP774FD5C');
 /*!40000 ALTER TABLE `aspnetusertokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,14 +246,18 @@ DROP TABLE IF EXISTS `grade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `grade` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `grade` decimal(10,2) DEFAULT NULL,
   `coefficient` decimal(10,2) DEFAULT NULL,
+  `isexam` tinyint(4) DEFAULT NULL,
   `subjectid` int(11) DEFAULT NULL,
+  `useridgrade` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `subject_id_idx` (`subjectid`),
-  CONSTRAINT `subjectid` FOREIGN KEY (`subjectid`) REFERENCES `subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `subjectid_idx` (`subjectid`),
+  KEY `useridgrade_idx` (`useridgrade`),
+  CONSTRAINT `subjectid` FOREIGN KEY (`subjectid`) REFERENCES `subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `useridgrade` FOREIGN KEY (`useridgrade`) REFERENCES `aspnetusers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +266,7 @@ CREATE TABLE `grade` (
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` VALUES (1,4.00,1.00,1),(2,5.00,1.00,1),(3,2.00,1.00,2),(4,4.50,1.50,2);
+INSERT INTO `grade` VALUES (20,1.00,1.00,0,12,'3e3c9308-68c6-4a41-9495-04dc43b6b17e');
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,14 +278,14 @@ DROP TABLE IF EXISTS `module`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `module` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `schoolyear` int(11) DEFAULT NULL,
-  `userid` varchar(255) DEFAULT NULL,
+  `useridmodule` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`userid`),
-  CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `aspnetusers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `useridmodule_idx` (`useridmodule`),
+  CONSTRAINT `useridmodule` FOREIGN KEY (`useridmodule`) REFERENCES `aspnetusers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +294,7 @@ CREATE TABLE `module` (
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
-INSERT INTO `module` VALUES (1,'Imagerie',3,'7a777ffa-2239-462f-862f-0814ef7120d6'),(2,'Reseaux',2,NULL);
+INSERT INTO `module` VALUES (11,'Test',1,'3e3c9308-68c6-4a41-9495-04dc43b6b17e');
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,14 +306,17 @@ DROP TABLE IF EXISTS `subject`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `subject` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `coefficient` decimal(10,2) DEFAULT NULL,
   `moduleid` int(11) DEFAULT NULL,
+  `useridsubject` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `module_id_idx` (`moduleid`),
-  CONSTRAINT `moduleid` FOREIGN KEY (`moduleid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `useridsubject_idx` (`useridsubject`),
+  CONSTRAINT `moduleid` FOREIGN KEY (`moduleid`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `useridsubject` FOREIGN KEY (`useridsubject`) REFERENCES `aspnetusers` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +325,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES (1,'WebGL',1.00,1),(2,'Crypto',1.00,2);
+INSERT INTO `subject` VALUES (12,'test',1.00,11,'3e3c9308-68c6-4a41-9495-04dc43b6b17e');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-18  1:16:19
+-- Dump completed on 2019-04-22 13:19:13
