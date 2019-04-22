@@ -7,7 +7,8 @@ namespace BricABrac.Models
 {
     public class TodoModel
     {
-        public string Message { get; private set; } = "PageModel in C#";
+        public int Id { get; set; }
+        public string Message { get; set; } = "PageModel in C#";
 
         public void OnGet()
         {

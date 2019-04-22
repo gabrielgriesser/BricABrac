@@ -1,0 +1,38 @@
+﻿@model BricABrac.Models.GradeSubjectViewModel
+
+<h2>Add a grade</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateGrade">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Grade.Grade" class="control-label"></label>
+                <input asp-for="Grade.Grade" class="form-control" type="number" min="0" required step="0.01"/>
+                <span asp-validation-for="Grade.Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade.Coefficient" class="control-label"></label>
+                <input asp-for="Grade.Coefficient" class="form-control" type="number" min="0" required step="0.01/>
+                <span asp-validation-for="Grade.Coefficient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Grade.IsExam" value="True" type="checkbox" />
+                <label asp-for="Grade.IsExam" class="control-label">Is a exam ?</label>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Subject name</label>
+                <select asp-for="Grade.Subjectid" asp-items="@(new SelectList(Model.SubjectList, "Id", "Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
