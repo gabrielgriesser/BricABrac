@@ -7,9 +7,11 @@ https://hackmd.io/JTdif-u7SV-gkTepiyHbzA?view
 ## How to install the project :
 
 ### Dependance : 
-* ASP.NET Core 2.2
+* ASP.NET Core v2.2.3 with the **SDK v2.2.105**
 	* If not go to : https://dotnet.microsoft.com/download/dotnet-core/2.2
 * MySQL on the local machine
+* MySQL for Visual Studio
+	* If not go to : https://dev.mysql.com/downloads/windows/visualstudio/
 * MySQL Connector/NET install on the local machine
 	* If not go to : https://dev.mysql.com/downloads/connector/net/
 
@@ -23,6 +25,10 @@ The projet required some Nugets Package for working, if it does not install with
 ![](https://i.imgur.com/qbRsF8n.png)
 
 3. Accept any license prompts.
+
+In the end, you need to have in minimum : 
+
+![](https://i.imgur.com/QVZc4dg.png)
 
 
 ### Database
