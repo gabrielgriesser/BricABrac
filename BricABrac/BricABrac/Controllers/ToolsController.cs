@@ -239,10 +239,5 @@ namespace BricABrac.Controllers
             }
             return RedirectToAction("Grade");
         }
-
-        public IActionResult PdfReader()
-        {
-            return View();
-        }
     }
 }

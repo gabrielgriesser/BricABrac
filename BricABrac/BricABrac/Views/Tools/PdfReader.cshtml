@@ -6,13 +6,40 @@
 
 <h2>PdfReader</h2>
 
-<div>
-    <h4>PdfReaderModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+<!-- Home Section -->
+<section id="home" class="main-contact parallax-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h2>PDF Reader</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Text Section -->
+<section id="contact">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-offset-1 col-md-10 col-sm-12">
+                <section id="text-demo">
+                    <h2>Reading a PDF</h2>
+                    <div class="input-group">
+
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" accept="application/pdf" onchange="openFile(event)">
+                            <label id="lbl-filename" class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                    </div>
+
+                    <div id="pdfReader"></div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Back top -->
+<a href="#back-top" class="go-top"><i class="fa fa-angle-up"></i></a>
