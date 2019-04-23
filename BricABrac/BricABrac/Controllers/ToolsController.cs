@@ -22,8 +22,46 @@ namespace BricABrac.Controllers
 
         public IActionResult Todo()
         {
-            
-            return View();
+            var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var model = Db.Todos.Where(m => m.UserIdTodo == userid).ToList();
+
+            //ViewData["MyData"] = model;
+            return View(model);
+        }
+
+        public IActionResult CreateTodo(TodoModel model)
+        {
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    model.UserIdTodo = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    Db.Todos.Add(model);
+                    Db.SaveChanges();
+                    return RedirectToAction("Todo");
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult EditTodo(int Id)
+        {
+            var model = Db.Todos
+                        .Where(m => m.Id == Id)
+                        .Where(m => m.UserIdTodo == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+                        .FirstOrDefault();
+
+            if (Request.Method == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    model.Todo = Request.Form["Todo"];
+                    Db.Todos.Update(model);
+                    Db.SaveChanges();
+                    return RedirectToAction("Todo");
+                }
+            }
+            return View(model);
         }
 
         public ActionResult EditMode()
