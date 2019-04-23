@@ -4,9 +4,6 @@ A Simple website made with .NET Core
 ## Description :
 https://hackmd.io/JTdif-u7SV-gkTepiyHbzA?view
 
-## GitHub :
-https://github.com/gaboss222/BricABrac/
-
 ## How to install the project :
 
 ### Dependance : 
