@@ -1,4 +1,6 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BricABrac.Models.ContactModel
+@{
     ViewData["Title"] = "Contact";
 }
 
@@ -33,21 +35,26 @@
                 <address>
                     <strong>Dev 1:</strong> <a href="mailto:gabriel.griesser@he-arc.ch">gabriel.griesser@he-arc.ch</a><br />
                     <strong>Dev 2:</strong> <a href="mailto:julien.feuillade@he-arc.ch">julien.feuillade@he-arc.ch</a><br />
+                    <strong>Dev 3:</strong> <a href="mailto:jeremy.dubois@he-arc.ch">jeremy.dubois@he-arc.ch</a><br />
                 </address>
 
-                <!-- TODO HERE ENVOYER MAIL !! -->
-                <form action="#" method="post">
+
+                <form asp-action="Contact" asp-controller="Home" method="post">
                     <div class="col-md-4 col-sm-4">
-                        <input name="name" type="text" class="form-control" id="name" placeholder="Name">
+                        <label asp-for="Name">Please enter your name:</label>
+                        <input type="text" asp-for="Name" class="form-control" id="name">
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                        <label asp-for="Email">Please enter your email:</label>
+                        <input type="text" asp-for="Email" class="form-control" id="email">
                     </div>
                     <div class="col-md-4 col-sm-4">
-                        <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject">
+                        <label asp-for="Subject">Subjet :</label>
+                        <input type="text" asp-for="Subject" class="form-control" id="subjet">
                     </div>
                     <div class="col-md-12 col-sm-12">
-                        <textarea name="message" rows="5" class="form-control" id="message" placeholder="Message"></textarea>
+                        <label asp-for="Message">Please enter your message:</label>
+                        <textarea type="text" asp-for="Message" class="form-control" id="message"></textarea>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <input name="submit" type="submit" class="form-control" id="submit" value="Send">

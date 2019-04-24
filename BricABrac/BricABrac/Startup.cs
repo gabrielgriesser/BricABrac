@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using BricABrac.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BricABrac.Models;
+using BricABrac.Models.Email;
 
 namespace BricABrac
 {
@@ -54,12 +56,34 @@ namespace BricABrac
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 0;
             });
+
+
+            // EMAIL CONFIG
+            EmailServerConfiguration config = new EmailServerConfiguration
+            {
+                SmtpPassword = "Naruto123-.,",
+                SmtpServer = "smtp.live.com",
+                SmtpUsername = "gabriel.griesser@hotmail.com"
+            };
+
+            EmailAddress FromEmailAddress = new EmailAddress
+            {
+                Address = "gabrielgriesser@hotmail.com",
+                Name = "Gabriel Griesser"
+            };
+
+            services.AddSingleton<EmailServerConfiguration>(config);
+            services.AddTransient<IEmailService, MailKitEmailService>();
+            services.AddSingleton<EmailAddress>(FromEmailAddress);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSession();
+
+            app.UseMvcWithDefaultRoute();
 
             if (env.IsDevelopment())
             {
