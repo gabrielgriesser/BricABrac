@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BricABrac.Models
 {
+    /// <summary>
+    /// Represents a Grade.
+    /// </summary>
     public class GradeModel
     {
         public int Id { get; set; }

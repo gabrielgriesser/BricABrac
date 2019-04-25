@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BricABrac.Models
 {
+    /// <summary>
+    /// Represents a grade for a student
+    /// </summary>
     public class StudentGradeModel
     {
         public List<ModuleModel> Modules { get; set; }

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace BricABrac.Models
 {
+    /// <summary>
+    /// Class represents an Email address
+    /// </summary>
     public class EmailAddress
     {
         public string Name { get; set; }

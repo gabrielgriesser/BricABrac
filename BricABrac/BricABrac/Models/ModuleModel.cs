@@ -7,6 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BricABrac.Models
 {
+    /// <summary>
+    /// Class represents a Module
+    /// Module has an Id, a Name, a SchoolYear and an UserIdModule.
+    /// </summary>
     public class ModuleModel
     {
         public int Id { get; set; }

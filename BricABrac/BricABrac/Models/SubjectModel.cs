@@ -7,6 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BricABrac.Models
 {
+    /// <summary>
+    /// Class represents a Subjet.
+    /// Subjet is used with module. For example, .NET is a subjet (a course) from module Language&Framework
+    /// </summary>
     public class SubjectModel
     {
         public int Id { get; set; }

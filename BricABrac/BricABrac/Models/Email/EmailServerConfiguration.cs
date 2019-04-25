@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace BricABrac.Models
 {
+    /// <summary>
+    /// Class represents an Email Server configuration
+    /// The smtp port is usually 587. 
+    /// But you can change with constructor
+    /// </summary>
     public class EmailServerConfiguration
     {
         public EmailServerConfiguration(int _smtpPort = 587)

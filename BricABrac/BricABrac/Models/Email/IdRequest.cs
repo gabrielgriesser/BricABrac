@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 namespace BricABrac.Models.Email
 {
     /// <summary>
-    /// Simple interface to use when we work with email
+    /// Simple static class who represents the request id
     /// </summary>
-    public interface IEmailService
+    public static class IdRequest
     {
-        void Send(EmailMessage message);
+        public static int Id { get; set; }
     }
 }

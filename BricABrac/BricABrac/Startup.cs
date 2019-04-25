@@ -18,8 +18,12 @@ using BricABrac.Models.Email;
 
 namespace BricABrac
 {
+    /// <summary>
+    /// Startup class for our application.
+    /// </summary>
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -58,7 +62,10 @@ namespace BricABrac
             });
 
 
-            // EMAIL CONFIG
+            // EMAIL configuration
+
+            IdRequest.Id = 0;
+
             EmailServerConfiguration config = new EmailServerConfiguration
             {
                 SmtpPassword = "Naruto123-.,",
@@ -68,7 +75,7 @@ namespace BricABrac
 
             EmailAddress FromEmailAddress = new EmailAddress
             {
-                Address = "gabrielgriesser@hotmail.com",
+                Address = "gabriel.griesser@hotmail.com",
                 Name = "Gabriel Griesser"
             };
 

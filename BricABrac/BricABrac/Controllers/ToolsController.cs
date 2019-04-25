@@ -11,15 +11,26 @@ using System.Security.Claims;
 
 namespace BricABrac.Controllers
 {
+    /// <summary>
+    /// Controller for each tools in our apps
+    /// </summary>
     public class ToolsController : Controller
     {
         private readonly ApplicationDbContext Db;
 
+        /// <summary>
+        /// Constructor with ApplicationDbContext
+        /// </summary>
+        /// <param name="Db"></param>
         public ToolsController(ApplicationDbContext Db)
         {
             this.Db = Db;
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Todo()
         {
             var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -29,6 +40,11 @@ namespace BricABrac.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Manage a new Todo
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public IActionResult CreateTodo(TodoModel model)
         {
             if (Request.Method == "POST")
@@ -44,6 +60,11 @@ namespace BricABrac.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Manage a Todo edit
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public IActionResult EditTodo(int Id)
         {
             var model = Db.Todos
