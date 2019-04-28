@@ -1,0 +1,34 @@
+﻿@model BricABrac.Models.SubjectModuleViewModel
+
+<h2>Create a subject</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateSubject" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Subject.Name" class="control-label"></label>
+                <input asp-for="Subject.Name" class="form-control" required/>
+                <span asp-validation-for="Subject.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject.Coefficient" class="control-label"></label>
+                <input asp-for="Subject.Coefficient" class="form-control" type="number" min="0" required step="0.01"/>
+                <span asp-validation-for="Subject.Coefficient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <label class="control-label">Module name</label>
+                    <select asp-for="Subject.Moduleid" asp-items="@(new SelectList(Model.ModuleList, "Id", "Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Grade">Back to grades</a>
+</div>
+
