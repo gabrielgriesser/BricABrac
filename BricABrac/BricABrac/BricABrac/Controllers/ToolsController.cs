@@ -64,6 +64,17 @@ namespace BricABrac.Controllers
             return View(model);
         }
 
+        public IActionResult DeleteTodo()
+        {
+            if (Request.Method == "POST")
+            {
+                Db.Todos.Remove(Db.Todos.Find(Int32.Parse(Request.Form["Id"])));
+                Db.SaveChanges();
+                return RedirectToAction("Todo");
+            }
+            return RedirectToAction("Todo");
+        }
+
         public ActionResult EditMode()
         {
             if(HttpContext.Session.GetInt32("editMode") == 1)
