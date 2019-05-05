@@ -36,6 +36,7 @@ namespace BricABrac.Controllers
                 if (ModelState.IsValid)
                 {
                     model.UserIdTodo = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    model.CreationDate = DateTime.Now;
                     Db.Todos.Add(model);
                     Db.SaveChanges();
                     return RedirectToAction("Todo");
