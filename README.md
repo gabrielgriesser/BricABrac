@@ -4,9 +4,9 @@ A Simple website made with .NET Core
 ## Description :
 https://hackmd.io/JTdif-u7SV-gkTepiyHbzA?view
 
-## How to install the project :
+# How to install the project :
 
-### Dependance : 
+## Dependance : 
 * ASP.NET Core v2.2.3 with the **SDK v2.2.105**
 	* If not go to : https://dotnet.microsoft.com/download/dotnet-core/2.2
 * MySQL on the local machine
@@ -31,10 +31,12 @@ In the end, you need to have in minimum :
 ![](https://i.imgur.com/QVZc4dg.png)
 
 
-### Database
+## Database
 Now we need to connect the database to Visual Studio
 
-To create a connection to an **EXISTING** MySQL database (**you need to create the database in your SQL first with the name bricabracdb**) , perform the following steps:
+To create a connection to an **EXISTING** MySQL database you need 
+- To create the database in your SQL first with the name **bricabracdb**
+- After perform the following steps:
 
 1. Start Visual Studio and open the Server Explorer by clicking **View** and then **Server Explorer** from the main menu.
 
@@ -55,3 +57,12 @@ To create a connection to an **EXISTING** MySQL database (**you need to create t
 ![](https://i.imgur.com/IA2x0u1.png)
 
 After the connection is successfully established, all settings are saved for future use. When you start Visual Studio for the next time, open the connection node in Server Explorer to establish a connection to the MySQL server again.
+
+## Migration
+
+All step done and you have a database connected to your visual studio but is empty, normal.
+You need to migrate the database with the command **"update-database"** in the shell of visual studio.
+
+![](https://i.imgur.com/uylnP2H.png)
+
+
