@@ -27,6 +27,10 @@ namespace BricABrac.Data
 
             modelBuilder.Ignore<StudentGradeModel>();
 
+            modelBuilder.Entity<GradeModel>().Property(p => p.Grade).HasColumnType("decimal(10,2)");
+            modelBuilder.Entity<GradeModel>().Property(p => p.Coefficient).HasColumnType("decimal(10,2)");
+            modelBuilder.Entity<SubjectModel>().Property(p => p.Coefficient).HasColumnType("decimal(10,2)");
+
             modelBuilder.Entity<ModuleModel>().ToTable("module");
             modelBuilder.Entity<SubjectModel>().ToTable("subject");
             modelBuilder.Entity<GradeModel>().ToTable("grade");
