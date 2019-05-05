@@ -9,7 +9,9 @@ namespace BricABrac.Models
     public class GradeModel
     {
         public int Id { get; set; }
+        [Column(TypeName = "decimal(10, 2)")]
         public decimal Grade { get; set; }
+        [Column(TypeName = "decimal(10, 2)")]
         public decimal Coefficient { get; set; }
         public bool IsExam { get; set; }
         public string UserIdGrade { get; set; }

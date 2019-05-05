@@ -10,8 +10,11 @@ namespace BricABrac.Models
     public class SubjectModel
     {
         public int Id { get; set; }
+        [StringLength(100)]
         public string Name { get; set; }
+        [Column(TypeName = "decimal(10, 2)")]
         public decimal Coefficient { get; set; }
+        [StringLength(255)]
         public string UserIdSubject { get; set; }
 
         public virtual ModuleModel Module { get; set; }
