@@ -46,7 +46,7 @@
                         if (@Html.DisplayTextFor(modelItem => item.Id) == @Html.DisplayTextFor(modelItem => item2.Moduleid))
                         {
 
-                            <h3 class="media-heading">
+                            <h3>
                                 @Html.DisplayTextFor(modelItem => item2.Name)
                                 @Html.ActionLink("", "EditSubject", new { id = item2.Id }, new { @class = "glyphicon glyphicon-pencil" })
                             </h3>
@@ -199,14 +199,18 @@ else
 {
 
     <a class="btn btn-primary nav-link text-white" style="float:right;" asp-controller="Tools" asp-action="EditMode">Edit Mode</a>
-    <div>
+    <hr />
+    <div class="container">
 
         @foreach (var item in Model.Modules)
         {
 
-            <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <h2>@Html.DisplayTextFor(modelItem => item.Name)</h2>
+            </div>
 
+            <div class="panel-body">
                 @{
                     decimal average_module = 0;
                     decimal coef_module = 0;
@@ -346,16 +350,19 @@ else
                         </table>
                     }
                 }
+            </div>
 
                 @if (coef_module != 0 || average_module != 0)
                 {
                     average_module = average_module / coef_module;
                     average_module = System.Math.Round(average_module, 2);
+                <div class="panel-footer">
                     <h3>Average in the module : @average_module</h3>
+                </div>
                 }
             </div>
-        }
-    </div>
+            }
+        </div>
 
 }
 
