@@ -3,14 +3,16 @@ using System;
 using BricABrac.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BricABrac.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190505182436_ApplicationModels")]
+    partial class ApplicationModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,10 +25,10 @@ namespace BricABrac.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Coefficient")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("Grade")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<bool>("IsExam");
 
@@ -46,13 +48,11 @@ namespace BricABrac.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(100);
+                    b.Property<string>("Name");
 
                     b.Property<int>("SchoolYear");
 
-                    b.Property<string>("UserIdModule")
-                        .HasMaxLength(255);
+                    b.Property<string>("UserIdModule");
 
                     b.HasKey("Id");
 
@@ -65,15 +65,13 @@ namespace BricABrac.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Coefficient")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Moduleid");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(100);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("UserIdSubject")
-                        .HasMaxLength(255);
+                    b.Property<string>("UserIdSubject");
 
                     b.HasKey("Id");
 
@@ -87,12 +85,9 @@ namespace BricABrac.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreationDate");
-
                     b.Property<string>("Todo");
 
-                    b.Property<string>("UserIdTodo")
-                        .HasMaxLength(45);
+                    b.Property<string>("UserIdTodo");
 
                     b.HasKey("Id");
 

@@ -6,6 +6,11 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190505190558_correctionTODO.cs" />
+    <Compile Remove="Data\Migrations\20190505190558_correctionTODO.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.1.4" />
